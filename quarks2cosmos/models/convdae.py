@@ -268,3 +268,26 @@ class SmallUResNet(UResNet):
                      # 360 -> 180 -> 90 -> 45
                      # 128 -> 64 -> 32 -> 16
                      name=name)
+
+class MediumUResNet(UResNet):
+  """ResNet18."""
+
+  def __init__(self,
+               bn_config: Optional[Mapping[str, float]] = None,
+               name: Optional[str] = None):
+    """Constructs a ResNet model.
+    Args:
+      bn_config: A dictionary of two elements, ``decay_rate`` and ``eps`` to be
+        passed on to the :class:`~haiku.BatchNorm` layers.
+      resnet_v2: Whether to use the v1 or v2 ResNet implementation. Defaults
+        to ``False``.
+      name: Name of the module.
+    """
+    super().__init__(blocks_per_group=(2, 2, 2, 2),
+                     bn_config=bn_config,
+                     bottleneck=False,
+                     channels_per_group=(32, 64, 128, 256),
+                     use_projection=(True, True, True, True),
+                     # 360 -> 180 -> 90 -> 45
+                     # 128 -> 64 -> 32 -> 16
+                     name=name)
